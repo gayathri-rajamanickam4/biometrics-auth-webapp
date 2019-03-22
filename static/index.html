@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title></title>
+        <link rel="stylesheet" href="css/milligram.min.css" />
+        <style>
+            html,
+            body,
+            .container,
+            .row {
+                height: 100%;
+            }
+
+            .formcontainer {
+                background: #f0f0f0;
+                padding: 15px;
+            }
+
+            .formcontainer form,
+            .formcontainer fieldset {
+                margin: 0;
+            }
+
+            .secretcontainer {
+                background: #f0f0f0;
+                padding: 15px;
+            }
+
+            #registerContainer,
+            #mainContainer,
+            #passwordLoginContainer,
+            #fingerprintLoginContainer {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div><h2>Biometric authentication in WebApp</h2></div>
+            <div class="row row-top">
+                <div class="column" id="registerContainer">
+                    <div class="formcontainer register">
+                        <h3>Enable finger print authentication</h3>
+                        <form id="register">
+                            <fieldset>
+                                <label name="loginname">Welcome</label>
+                                <input type="text" name="name" hidden />
+                                <input type="text" name="username" hidden />
+                                <input class="button-primary" type="submit" value="Register" />
+                                <button id="logoutButton2" type="button">Logout</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="column" id="passwordLoginContainer">
+                    <div class="formcontainer register">
+                        <h3>Login using password</h3>
+                        <form id="passwordlogin">
+                            <fieldset>
+                                <label for="name">Name</label>
+                                <input type="text" name="name" />
+                                <label for="password">Password</label>
+                                <input type="password" name="password" />
+                                <input class="button-primary" type="submit" value="Login" id="passwordLoginButton" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="column" id="fingerprintLoginContainer">
+                    <div class="formcontainer register">
+                        <h3>Login using password</h3>
+                        <form id="login">
+                            <fieldset>
+                                <label for="nameField">username</label>
+                                <input type="text" name="username" />
+                                <input class="button-primary" type="submit" value="Login" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="column" id="loginContainer">
+                    <div class="formcontainer login">
+                        <h3>Already registered?</h3>
+                        <a href="#" id="toLoginPwd">Login with password</a> <br />
+                        <a href="#" id="toLoginFP">Login with finger print</a>
+                        <!-- <form id="login">
+                            <fieldset>
+                                <label for="nameField">username</label>
+                                <input type="text" name="username" />
+                                <input class="button-primary" type="submit" value="Login" />
+                            </fieldset>
+                        </form>
+
+                        <a href="#" id="toRegistration">Not registered yet? Registration</a> -->
+                    </div>
+                </div>
+
+                <div class="column" id="mainContainer">
+                    <div class="secretcontainer">
+                        <h3>Hey <span id="name"></span>!</h3>
+                        <div id="theSecret"></div>
+                        <button id="logoutButton1">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/utils.js"></script>
+        <script src="js/base64url-arraybuffer.js"></script>
+        <script src="js/view.js"></script>
+        <script src="js/password.auth.js"></script>
+        <script src="js/webauthn.auth.js"></script>
+        <script>
+            $(document).ready(() => {
+                checkIfLoggedIn().then((response) => {
+                    if (response)
+                        if (response.status === 'ok') {
+                            return loadMainContainer();
+                        }
+                });
+            });
+        </script>
+    </body>
+</html>
